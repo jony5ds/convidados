@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_all">
+
+    <fragment
+        android:id="@+id/nav_all"
+        android:name="com.jonatas.convidados.ui.allGuests.AllGuestsFragment"
+        android:label="@string/menu_all_guests"
+        tools:layout="@layout/fragment_all_guests" >
+        <!--<action
+            android:id="@+id/action_nav_home_to_nav_gallery"
+            app:destination="@id/nav_presents" />-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_presents"
+        android:name="com.jonatas.convidados.ui.presents.PresentFragment"
+        android:label="@string/menu_presents"
+        tools:layout="@layout/fragment_present" >
+        <!--<action
+            android:id="@+id/action_nav_gallery_to_nav_slideshow"
+            app:destination="@id/nav_absents" />-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_absents"
+        android:name="com.jonatas.convidados.ui.absents.AbsentFragment"
+        android:label="@string/menu_absents"
+        tools:layout="@layout/fragment_absent" />
+</navigation>
