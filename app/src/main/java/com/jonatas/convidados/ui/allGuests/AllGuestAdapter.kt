@@ -18,7 +18,6 @@ class AllGuestAdapter : RecyclerView.Adapter<AllGuestViewHolder>() {
         )
 
         return AllGuestViewHolder(item)
-
     }
 
     override fun getItemCount(): Int {
