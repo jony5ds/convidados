@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jonatas.convidados.R
+import kotlinx.android.synthetic.main.fragment_all_guests.*
 
 
 class AllGuestsFragment : Fragment() {
@@ -24,20 +25,8 @@ class AllGuestsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         allGuestsViewModel = ViewModelProvider(this).get(AllGuestsViewModel::class.java)
-
         val root = inflater.inflate(R.layout.fragment_all_guests, container, false)
-
-        // Obter recyclerView
-        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_all_guests)
-
-        // Definir Layout
-        recyclerView.layoutManager = LinearLayoutManager(context)
-
-        // Definir Adapter
-        recyclerView.adapter = mAllGuestAdapter
-
         observer()
-
         return root
     }
 
@@ -50,5 +39,12 @@ class AllGuestsFragment : Fragment() {
         allGuestsViewModel.guestLits.observe(viewLifecycleOwner, Observer {
             mAllGuestAdapter.updateGuests(it)
         })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(recycler_all_guests) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = mAllGuestAdapter
+        }
     }
 }
