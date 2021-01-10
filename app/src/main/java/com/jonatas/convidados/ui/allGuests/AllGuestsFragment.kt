@@ -39,6 +39,9 @@ class AllGuestsFragment : Fragment() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
+
+            override fun onDelete(id: Int) {
+            }
         }
         mAllGuestAdapter.attachListener(mListener)
         return root
