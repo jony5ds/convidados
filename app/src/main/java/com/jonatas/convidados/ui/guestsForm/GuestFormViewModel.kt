@@ -11,14 +11,24 @@ import com.jonatas.convidados.service.repository.GuestRepository
 class GuestFormViewModel(application : Application): AndroidViewModel(application) {
 
     private val mContext = application.applicationContext
+    private val mGuestRepository = GuestRepository.getInstance(mContext)
+
     private val mResult = MutableLiveData<Boolean>()
     val result: LiveData<Boolean> = mResult
 
-    private val mGuestRepository = GuestRepository.getInstance(mContext)
+    fun save(id: Int, name: String, presence: Boolean){
+        val guest = GuestModel(id = id,name = name,presence =  presence)
+        if (id == 0) {
+            mResult.value =  mGuestRepository.save(guest)
+        } else {
+            mResult.value =  mGuestRepository.update(guest)
+        }
+    }
 
-    fun save(name: String, presence: Boolean){
-        val guest = GuestModel(name = name,presence =  presence)
-       mResult.value =  mGuestRepository.save(guest)
+    private val mGuest = MutableLiveData<GuestModel>()
+    val guest: LiveData<GuestModel> = mGuest
 
+    fun load(id: Int) {
+        mGuest.value = mGuestRepository.findGuestById(id)
     }
 }
