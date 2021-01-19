@@ -13,12 +13,13 @@ import com.jonatas.convidados.R
 import com.jonatas.convidados.listerner.GuestListener
 import com.jonatas.convidados.service.constants.GuestConstants
 import com.jonatas.convidados.ui.guestsForm.GuestFormActivity
+import com.jonatas.convidados.ui.viewModel.GuestsViewModel
 import kotlinx.android.synthetic.main.fragment_all_guests.*
 
 
 class AllGuestsFragment : Fragment() {
 
-    private lateinit var allGuestsViewModel: AllGuestsViewModel
+    private lateinit var mViewModel: GuestsViewModel
     private val mAllGuestAdapter = AllGuestAdapter()
     private lateinit var mListener: GuestListener
 
@@ -27,9 +28,8 @@ class AllGuestsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        allGuestsViewModel = ViewModelProvider(this).get(AllGuestsViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(GuestsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_all_guests, container, false)
-        observer()
 
         mListener = object: GuestListener {
             override fun onclick(id: Int) {
@@ -41,19 +41,23 @@ class AllGuestsFragment : Fragment() {
             }
 
             override fun onDelete(id: Int) {
+                mViewModel.delete(id)
+                mViewModel.load(GuestConstants.EMPTY)
             }
         }
         mAllGuestAdapter.attachListener(mListener)
+
+        observer()
         return root
     }
 
     override fun onResume() {
         super.onResume()
-        allGuestsViewModel.load()
+        mViewModel.load(GuestConstants.EMPTY)
     }
 
     private fun observer() {
-        allGuestsViewModel.guestLits.observe(viewLifecycleOwner, Observer {
+        mViewModel.guestLits.observe(viewLifecycleOwner, Observer {
             mAllGuestAdapter.updateGuests(it)
         })
     }
