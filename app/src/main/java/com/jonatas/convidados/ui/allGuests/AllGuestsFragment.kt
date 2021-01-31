@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jonatas.convidados.R
 import com.jonatas.convidados.listerner.GuestListener
 import com.jonatas.convidados.service.constants.GuestConstants
+import com.jonatas.convidados.service.model.GuestModel
+import com.jonatas.convidados.ui.adapter.AllGuestAdapter
 import com.jonatas.convidados.ui.guestsForm.GuestFormActivity
 import com.jonatas.convidados.ui.viewModel.GuestsViewModel
 import kotlinx.android.synthetic.main.fragment_all_guests.*
@@ -40,13 +42,12 @@ class AllGuestsFragment : Fragment() {
                 startActivity(intent)
             }
 
-            override fun onDelete(id: Int) {
-                mViewModel.delete(id)
+            override fun onDelete(guest: GuestModel) {
+                mViewModel.delete(guest)
                 mViewModel.load(GuestConstants.EMPTY)
             }
         }
         mAllGuestAdapter.attachListener(mListener)
-
         observer()
         return root
     }

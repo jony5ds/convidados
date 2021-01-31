@@ -10,7 +10,7 @@ import com.jonatas.convidados.service.repository.GuestRepository
 
 class GuestsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val mGuestRepository = GuestRepository.getInstance(application.applicationContext)
+    val mGuestRepository = GuestRepository(application.applicationContext)
 
     private var mGuestList = MutableLiveData<List<GuestModel>>()
     val guestLits: LiveData<List<GuestModel>> = mGuestList
@@ -25,7 +25,7 @@ class GuestsViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun delete(id: Int) {
-        mGuestRepository.delete(id = id)
+    fun delete(guest: GuestModel) {
+        mGuestRepository.delete(guest)
     }
 }

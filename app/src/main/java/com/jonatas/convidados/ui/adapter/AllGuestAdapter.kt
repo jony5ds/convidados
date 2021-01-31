@@ -1,4 +1,4 @@
-package com.jonatas.convidados.ui.allGuests
+package com.jonatas.convidados.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

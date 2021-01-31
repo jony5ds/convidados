@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jonatas.convidados.R
 import com.jonatas.convidados.listerner.GuestListener
 import com.jonatas.convidados.service.constants.GuestConstants
-import com.jonatas.convidados.ui.allGuests.AllGuestAdapter
+import com.jonatas.convidados.service.model.GuestModel
+import com.jonatas.convidados.ui.adapter.AllGuestAdapter
 import com.jonatas.convidados.ui.guestsForm.GuestFormActivity
 import com.jonatas.convidados.ui.viewModel.GuestsViewModel
-import kotlinx.android.synthetic.main.fragment_all_guests.*
 import kotlinx.android.synthetic.main.fragment_present.*
 
 class PresentFragment : Fragment() {
@@ -44,15 +43,13 @@ class PresentFragment : Fragment() {
         startActivity(intent)
       }
 
-      override fun onDelete(id: Int) {
-        mViewModel.delete(id)
+      override fun onDelete(guest: GuestModel) {
+        mViewModel.delete(guest)
         mViewModel.load(GuestConstants.PRESENT)
       }
     }
     mAllGuestAdapter.attachListener(mListener)
-
     observer()
-
     return root
   }
 
